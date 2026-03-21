@@ -1,4 +1,4 @@
-import java.awt.*;
+import java.awt.Image;
 
 public class SolidSprite extends Sprite {
 
@@ -6,5 +6,3 @@ public class SolidSprite extends Sprite {
         super(x, y, image, width, height);
     }
 }
-
-

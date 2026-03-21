@@ -21,6 +21,7 @@ public class RenderEngine extends JPanel implements Engine {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+
         for (Displayable displayable : renderList) {
             displayable.draw(g);
         }
