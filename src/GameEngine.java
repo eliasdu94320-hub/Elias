@@ -11,7 +11,7 @@ public class GameEngine implements Engine, KeyListener {
 
     @Override
     public void update() {
-// volontairement vide
+
     }
 
     @Override
