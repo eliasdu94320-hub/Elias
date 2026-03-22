@@ -27,11 +27,11 @@ public class Main {
                 50
         );
 
+        renderEngine.setHero(hero);
+
         gameEngine = new GameEngine(hero);
 
-
         Playground playground = new Playground("./images/data/level1.txt");
-
 
         for (Displayable sprite : playground.getSpriteList()) {
             renderEngine.addToRenderList(sprite);

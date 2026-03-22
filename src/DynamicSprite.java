@@ -63,7 +63,25 @@ public class DynamicSprite extends SolidSprite {
     public void moveIfPossible(ArrayList<Sprite> environment) {
         if (isMovingPossible(environment)) {
             move();
+            for (Sprite sprite : environment) {
+                if (sprite instanceof SolidSprite) {
+                    if (this.getHitBox().intersects(sprite.getHitBox())) {
+                        takeDamage(10);
+                    }
+                }
+            }
         }
+    }
+
+    private int health = 100;
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void takeDamage(int damage) {
+        health -= damage;
+        if (health < 0) health = 0;
     }
 
     @Override

@@ -37,6 +37,16 @@ public class Playground {
 
                     switch (element) {
 
+                        case 'P':
+                            environment.add(new SolidSprite(
+                                    columnNumber * imageRockWidth,
+                                    lineNumber * imageRockHeight,
+                                    imageTrap,
+                                    imageRockWidth,
+                                    imageRockHeight
+                            ));
+                            break;
+
                         case 'T':
                             environment.add(new SolidSprite(
                                     columnNumber * imageTreeWidth,
@@ -66,6 +76,7 @@ public class Playground {
                                     imageRockHeight
                             ));
                             break;
+
                     }
 
                     columnNumber++;
