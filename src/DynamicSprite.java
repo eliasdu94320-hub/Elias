@@ -77,6 +77,9 @@ public class DynamicSprite extends SolidSprite {
     }
 
     public void moveIfPossible(ArrayList<Sprite> environment) {
+        if (health <= 0){
+            return;
+        }
 
         if (isMovingPossible(environment)) {
             move();

@@ -16,6 +16,9 @@ public class GameEngine implements Engine, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (hero.getHealth() <= 0){
+            return ;
+        }
 
         hero.setWalking(true);
 
