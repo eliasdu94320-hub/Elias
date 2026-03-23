@@ -7,6 +7,10 @@ public class DynamicSprite extends SolidSprite {
     private boolean isWalking = false;
     private double speed = 5;
 
+    public boolean isInvincible() {
+        return System.currentTimeMillis() - lastDamageTime < INVINCIBILITY_TIME; // conditions de clignotement
+    }
+
     private final int spriteSheetNumberOfColumn = 10;
     private int timeBetweenFrame = 200;
 
@@ -102,6 +106,13 @@ public class DynamicSprite extends SolidSprite {
         int srcY1 = attitude * (int) height;
         int srcX2 = (index + 1) * (int) width;
         int srcY2 = (attitude + 1) * (int) height;
+
+
+        if (isInvincible()) {   // Clignotement quand on se fait toucher
+            if ((System.currentTimeMillis() / 100) % 2 == 0) {
+                return;
+            }
+        }
 
         g.drawImage(image,
                 (int)x, (int)y, (int)(x + width), (int)(y + height),

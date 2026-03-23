@@ -11,14 +11,14 @@ public class Main {
 
     public Main() throws Exception {
 
-        displayZoneFrame = new JFrame("Java Labs");
+        displayZoneFrame = new JFrame("The Legend Of Zelda");
         displayZoneFrame.setSize(400, 600);
         displayZoneFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         renderEngine = new RenderEngine();
         physicEngine = new PhysicEngine();
 
-// HERO
+
         DynamicSprite hero = new DynamicSprite(
                 100,
                 300,
