@@ -6,9 +6,16 @@ public class DynamicSprite extends SolidSprite {
 
     private boolean isWalking = false;
     private double speed = 5;
+
     private final int spriteSheetNumberOfColumn = 10;
     private int timeBetweenFrame = 200;
+
     private Direction direction = Direction.SOUTH;
+
+    private int health = 100;
+
+    private long lastDamageTime = 0;
+    private final long INVINCIBILITY_TIME = 2000;
 
     public DynamicSprite(double x, double y, Image image, double width, double height) {
         super(x, y, image, width, height);
@@ -20,6 +27,15 @@ public class DynamicSprite extends SolidSprite {
 
     public void setWalking(boolean walking) {
         this.isWalking = walking;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void takeDamage(int damage) {
+        health -= damage;
+        if (health < 0) health = 0;
     }
 
     private void move() {
@@ -35,23 +51,19 @@ public class DynamicSprite extends SolidSprite {
 
     private boolean isMovingPossible(ArrayList<Sprite> environment) {
 
-        Rectangle2D.Double hitBox;
+        Rectangle2D.Double futureHitBox;
 
         switch (direction) {
-            case NORTH -> hitBox = new Rectangle2D.Double(x, y - speed, width, height);
-            case SOUTH -> hitBox = new Rectangle2D.Double(x, y + speed, width, height);
-            case EAST -> hitBox = new Rectangle2D.Double(x + speed, y, width, height);
-            case WEST -> hitBox = new Rectangle2D.Double(x - speed, y, width, height);
-            default -> hitBox = new Rectangle2D.Double(x, y, width, height);
+            case NORTH -> futureHitBox = new Rectangle2D.Double(x, y - speed, width, height);
+            case SOUTH -> futureHitBox = new Rectangle2D.Double(x, y + speed, width, height);
+            case EAST -> futureHitBox = new Rectangle2D.Double(x + speed, y, width, height);
+            case WEST -> futureHitBox = new Rectangle2D.Double(x - speed, y, width, height);
+            default -> futureHitBox = new Rectangle2D.Double(x, y, width, height);
         }
 
         for (Sprite sprite : environment) {
-            if (sprite instanceof SolidSprite && sprite != this) {
-
-                Rectangle2D.Double other =
-                        new Rectangle2D.Double(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
-
-                if (hitBox.intersects(other)) {
+            if (sprite instanceof SolidSprite && !(sprite instanceof Trap)) {
+                if (futureHitBox.intersects(sprite.getHitBox())) {
                     return false;
                 }
             }
@@ -61,27 +73,23 @@ public class DynamicSprite extends SolidSprite {
     }
 
     public void moveIfPossible(ArrayList<Sprite> environment) {
+
         if (isMovingPossible(environment)) {
             move();
-            for (Sprite sprite : environment) {
-                if (sprite instanceof SolidSprite) {
-                    if (this.getHitBox().intersects(sprite.getHitBox())) {
-                        takeDamage(10);
-                    }
+        }
+
+        long currentTime = System.currentTimeMillis();
+
+        for (Sprite sprite : environment) {
+            if (sprite instanceof Trap) {
+                if (this.getHitBox().intersects(sprite.getHitBox())
+                        && currentTime - lastDamageTime > INVINCIBILITY_TIME) {
+
+                    takeDamage(10);
+                    lastDamageTime = currentTime;
                 }
             }
         }
-    }
-
-    private int health = 100;
-
-    public int getHealth() {
-        return health;
-    }
-
-    public void takeDamage(int damage) {
-        health -= damage;
-        if (health < 0) health = 0;
     }
 
     @Override

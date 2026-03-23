@@ -37,8 +37,8 @@ public class Playground {
 
                     switch (element) {
 
-                        case 'P':
-                            environment.add(new SolidSprite(
+                        case 'X':
+                            environment.add(new Trap(
                                     columnNumber * imageRockWidth,
                                     lineNumber * imageRockHeight,
                                     imageTrap,
