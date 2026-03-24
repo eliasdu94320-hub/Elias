@@ -29,7 +29,7 @@ public class Main {
 
         renderEngine.setHero(hero);
 
-        gameEngine = new GameEngine(hero);
+        gameEngine = new GameEngine(hero, renderEngine);
 
         Playground playground = new Playground("./images/data/level1.txt");
 

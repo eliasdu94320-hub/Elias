@@ -78,7 +78,7 @@ public class DynamicSprite extends SolidSprite {
 
     public void moveIfPossible(ArrayList<Sprite> environment) {
         if (health <= 0){
-            return;
+            return;  // Le personnage ne répond plus si les PV sont en dessous de 0
         }
 
         if (isMovingPossible(environment)) {

@@ -3,6 +3,13 @@ import java.awt.event.KeyListener;
 
 public class GameEngine implements Engine, KeyListener {
 
+    private RenderEngine renderEngine;
+
+    public GameEngine(DynamicSprite hero, RenderEngine renderEngine) {
+        this.hero = hero;
+        this.renderEngine = renderEngine;
+    }
+
     private final DynamicSprite hero;
 
     public GameEngine(DynamicSprite hero) {
@@ -16,8 +23,8 @@ public class GameEngine implements Engine, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (hero.getHealth() <= 0){
-            return ;
+        if (hero.getHealth() <= 0 || renderEngine.getRemainingTime() == 0) {
+            return ;    // Si le héros meurt les touches du clavier sont désactivées
         }
 
         hero.setWalking(true);
