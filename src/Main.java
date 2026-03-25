@@ -11,7 +11,7 @@ public class Main {
 
     public Main() throws Exception {
 
-        displayZoneFrame = new JFrame("The Legend Of Zelda");
+        displayZoneFrame = new JFrame("Le jeu pas complet ");
         displayZoneFrame.setSize(400, 600);
         displayZoneFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -38,8 +38,11 @@ public class Main {
         }
 
 
+
+
         renderEngine.addToRenderList(hero);
         physicEngine.addToMovingSpriteList(hero);
+
 
 
         physicEngine.setEnvironment(playground.getSolidSpriteList());

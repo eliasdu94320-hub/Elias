@@ -6,6 +6,7 @@ public class DynamicSprite extends SolidSprite {
 
     private boolean isWalking = false;
     private double speed = 5;
+    private boolean win = false;
 
     public boolean isInvincible() {
         return System.currentTimeMillis() - lastDamageTime < INVINCIBILITY_TIME; // conditions de clignotement
@@ -40,6 +41,13 @@ public class DynamicSprite extends SolidSprite {
     public void takeDamage(int damage) {
         health -= damage;
         if (health < 0) health = 0;
+    }
+    public void setWin(boolean win) {
+        this.win = win;
+    }
+
+    public boolean isWin() {
+        return win;
     }
 
     private void move() {
@@ -94,6 +102,12 @@ public class DynamicSprite extends SolidSprite {
 
                     takeDamage(10);
                     lastDamageTime = currentTime;
+                }
+
+            }
+            if (sprite instanceof Exit) {
+                if (this.getHitBox().intersects(sprite.getHitBox())) {
+                    setWin(true);
                 }
             }
         }

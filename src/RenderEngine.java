@@ -59,6 +59,13 @@ public class RenderEngine extends JPanel implements Engine {
             g.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 40));
             g.drawString("GAME OVER", 80, 300);
         }
+        if (hero.isWin()) {
+            g.setColor(java.awt.Color.BLUE);
+            g.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 40));
+            g.drawString("Gagné !", 100, 300);
+        }
+
+
 
     }
 

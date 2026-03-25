@@ -11,6 +11,7 @@ public class Playground {
     public Playground(String pathName) {
 
         try {
+            final Image imageDoor = ImageIO.read(new File("./images/img/Door.png"));
             final Image imageTree = ImageIO.read(new File("./images/img/tree.png"));
             final Image imageGrass = ImageIO.read(new File("./images/img/grass.png"));
             final Image imageRock = ImageIO.read(new File("./images/img/rock.png"));
@@ -25,6 +26,11 @@ public class Playground {
             final int imageRockWidth = imageRock.getWidth(null);
             final int imageRockHeight = imageRock.getHeight(null);
 
+            final int imageDoorWidth = imageDoor.getWidth(null);
+            final int imageDoorHeight = imageDoor.getHeight(null);
+
+
+
             BufferedReader bufferedReader = new BufferedReader(new FileReader(pathName));
             String line = bufferedReader.readLine();
 
@@ -37,7 +43,17 @@ public class Playground {
 
                     switch (element) {
 
-                        case 'X':
+                        case 'E':                         //Config de la porte
+                            environment.add(new Exit(
+                                    columnNumber * imageDoorWidth,
+                                    lineNumber * imageDoorHeight,
+                                    imageDoor,
+                                    imageDoorWidth,
+                                    imageDoorHeight
+                            ));
+                            break;
+
+                        case 'X':                          // Config de la Trape
                             environment.add(new Trap(
                                     columnNumber * imageRockWidth,
                                     lineNumber * imageRockHeight,
@@ -47,7 +63,7 @@ public class Playground {
                             ));
                             break;
 
-                        case 'T':
+                        case 'T':                           // Config de l'arbre
                             environment.add(new SolidSprite(
                                     columnNumber * imageTreeWidth,
                                     lineNumber * imageTreeHeight,
@@ -57,7 +73,7 @@ public class Playground {
                             ));
                             break;
 
-                        case ' ':
+                        case ' ':                            // Config de l'herbe
                             environment.add(new Sprite(
                                     columnNumber * imageGrassWidth,
                                     lineNumber * imageGrassHeight,
@@ -67,7 +83,7 @@ public class Playground {
                             ));
                             break;
 
-                        case 'R':
+                        case 'R':                            // Config du rocher
                             environment.add(new SolidSprite(
                                     columnNumber * imageRockWidth,
                                     lineNumber * imageRockHeight,
